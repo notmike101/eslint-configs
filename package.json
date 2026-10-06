@@ -1,0 +1,25 @@
+{
+  "name": "@notmike101/eslint-configs",
+  "private": true,
+  "type": "module",
+  "version": "3.1.0",
+  "description": "Shared ESLint rules",
+  "author": "Mike Orozco <me@mikeorozco.dev>",
+  "engines": {
+    "node": ">= 22"
+  },
+  "scripts": {
+    "generate": "node ./scripts/generate-configs.mjs",
+    "generate:check": "node ./scripts/generate-configs.mjs --check",
+    "validate:imports": "node ./scripts/validate-imports.mjs",
+    "test:fixtures": "node --test ./tests/fixtures.test.mjs",
+    "pack:check": "node ./scripts/pack-check.mjs",
+    "ci": "pnpm run generate:check && pnpm run validate:imports && pnpm run test:fixtures && pnpm run pack:check"
+  },
+  "devDependencies": {
+    "@notmike101/eslint-config-js": "workspace:^",
+    "@notmike101/eslint-config-jsdoc": "workspace:^",
+    "@notmike101/eslint-config-ts": "workspace:^",
+    "eslint": "^10.12.0"
+  }
+}

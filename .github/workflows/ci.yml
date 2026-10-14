@@ -1,0 +1,64 @@
+name: CI and package archives
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.28.2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: pnpm
+      - name: Install frozen dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Validate generated configs and consumers
+        run: pnpm run ci
+      - name: Pack individual configurations
+        id: pack
+        if: github.event_name != 'pull_request' && github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+        run: |
+          pnpm --dir packages/eslint-config-js pack --pack-destination ../../tarballs
+          pnpm --dir packages/eslint-config-ts pack --pack-destination ../../tarballs
+          pnpm --dir packages/eslint-config-jsdoc pack --pack-destination ../../tarballs
+      - name: Upload JavaScript configuration
+        if: steps.pack.outcome == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: eslint-config-js
+          path: tarballs/notmike101-eslint-config-js-*.tgz
+          if-no-files-found: error
+          retention-days: 90
+      - name: Upload TypeScript configuration
+        if: steps.pack.outcome == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: eslint-config-ts
+          path: tarballs/notmike101-eslint-config-ts-*.tgz
+          if-no-files-found: error
+          retention-days: 90
+      - name: Upload JSDoc configuration
+        if: steps.pack.outcome == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: eslint-config-jsdoc
+          path: tarballs/notmike101-eslint-config-jsdoc-*.tgz
+          if-no-files-found: error
+          retention-days: 90

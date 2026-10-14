@@ -14,6 +14,7 @@ import {
 import {
   jsImportStaticAnalysisRuleEntries,
   jsNodeModuleFiles,
+  jsStylisticRuleEntries,
 } from '../internal/config-fragments/js.mjs';
 import {
   tsNodeModuleFiles,
@@ -102,6 +103,13 @@ ${renderRuleEntries(sharedUnicornRuleEntries, 6)}
       // Import plugin rules
 ${renderRuleEntries(jsImportStaticAnalysisRuleEntries, 6)}
 ${renderRuleEntries(sharedImportRuleEntries, 6)}
+    },
+  },
+
+  // JavaScript-only stylistic overrides
+  {
+    rules: {
+${renderRuleEntries(jsStylisticRuleEntries, 6)}
     },
   },
   {

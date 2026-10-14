@@ -1,3 +1,18 @@
+import { sharedPaddingLineOptions } from './shared.mjs';
+
+// JavaScript-only stylistic overrides, rendered after the shared stylistic
+// entry so they replace that rule's options.
+export const jsStylisticRuleEntries = [
+  {
+    // Requires a blank line before `try`. The exception needs no option: the
+    // preset's @stylistic/padded-blocks already rejects a blank line directly
+    // after an opening brace, so a `try` that opens a block stays unpadded.
+    name: '@stylistic/padding-line-between-statements',
+    url: 'https://eslint.style/rules/default/padding-line-between-statements',
+    value: ['warn', ...sharedPaddingLineOptions, { blankLine: 'always', prev: '*', next: 'try' }],
+  },
+];
+
 export const jsNodeModuleFiles = [
   '**/*.config.{js,mjs}',
   '**/.*rc.{js,mjs}',

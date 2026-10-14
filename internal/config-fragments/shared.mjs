@@ -147,6 +147,21 @@ export const sharedGeneralRuleEntries = [
   },
 ];
 
+export const sharedPaddingLineOptions = [
+  { blankLine: 'always', prev: '*', next: 'return' },
+  { blankLine: 'always', prev: ['const', 'let'], next: '*' },
+  { blankLine: 'any', prev: ['const', 'let'], next: ['const', 'let'] },
+  { blankLine: 'always', prev: 'block-like', next: '*' },
+  { blankLine: 'always', prev: 'import', next: '*' },
+  { blankLine: 'any', prev: 'import', next: 'import' },
+  { blankLine: 'always', prev: '*', next: 'function' },
+  { blankLine: 'always', prev: '*', next: 'class' },
+  { blankLine: 'any', prev: 'case', next: 'case' },
+  { blankLine: 'always', prev: 'for', next: '*' },
+  { blankLine: 'always', prev: '*', next: 'for' },
+  { blankLine: 'always', prev: '*', next: 'if' },
+];
+
 export const sharedStylisticRuleEntries = [
   {
     name: '@stylistic/line-comment-position',
@@ -183,20 +198,7 @@ export const sharedStylisticRuleEntries = [
   {
     name: '@stylistic/padding-line-between-statements',
     url: 'https://eslint.style/rules/default/padding-line-between-statements',
-    value: ['warn',
-      { blankLine: 'always', prev: '*', next: 'return' },
-      { blankLine: 'always', prev: ['const', 'let'], next: '*' },
-      { blankLine: 'any', prev: ['const', 'let'], next: ['const', 'let'] },
-      { blankLine: 'always', prev: 'block-like', next: '*' },
-      { blankLine: 'always', prev: 'import', next: '*' },
-      { blankLine: 'any', prev: 'import', next: 'import' },
-      { blankLine: 'always', prev: '*', next: 'function' },
-      { blankLine: 'always', prev: '*', next: 'class' },
-      { blankLine: 'any', prev: 'case', next: 'case' },
-      { blankLine: 'always', prev: 'for', next: '*' },
-      { blankLine: 'always', prev: '*', next: 'for' },
-      { blankLine: 'always', prev: '*', next: 'if' },
-    ],
+    value: ['warn', ...sharedPaddingLineOptions],
   },
   {
     name: '@stylistic/semi-style',

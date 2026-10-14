@@ -397,6 +397,90 @@ export default [
       'import/no-namespace': 'warn',
     },
   },
+
+  // JavaScript-only stylistic overrides
+  {
+    rules: {
+      // https://eslint.style/rules/default/padding-line-between-statements
+      '@stylistic/padding-line-between-statements': [
+          'warn',
+          {
+            blankLine: 'always',
+            prev: '*',
+            next: 'return'
+          },
+          {
+            blankLine: 'always',
+            prev: [
+              'const',
+              'let'
+            ],
+            next: '*'
+          },
+          {
+            blankLine: 'any',
+            prev: [
+              'const',
+              'let'
+            ],
+            next: [
+              'const',
+              'let'
+            ]
+          },
+          {
+            blankLine: 'always',
+            prev: 'block-like',
+            next: '*'
+          },
+          {
+            blankLine: 'always',
+            prev: 'import',
+            next: '*'
+          },
+          {
+            blankLine: 'any',
+            prev: 'import',
+            next: 'import'
+          },
+          {
+            blankLine: 'always',
+            prev: '*',
+            next: 'function'
+          },
+          {
+            blankLine: 'always',
+            prev: '*',
+            next: 'class'
+          },
+          {
+            blankLine: 'any',
+            prev: 'case',
+            next: 'case'
+          },
+          {
+            blankLine: 'always',
+            prev: 'for',
+            next: '*'
+          },
+          {
+            blankLine: 'always',
+            prev: '*',
+            next: 'for'
+          },
+          {
+            blankLine: 'always',
+            prev: '*',
+            next: 'if'
+          },
+          {
+            blankLine: 'always',
+            prev: '*',
+            next: 'try'
+          }
+        ],
+    },
+  },
   {
     files: ['**/*.{js,mjs}'],
     ignores: nodeModuleFiles,

@@ -29,6 +29,13 @@ export const fixtureCases = [
         file: 'src/no-var.js',
         expectedRuleIds: ['no-var'],
       },
+      {
+        file: 'src/try-padding.js',
+        expectedRuleIds: [
+          '@stylistic/padding-line-between-statements',
+          '@stylistic/padded-blocks',
+        ],
+      },
     ],
   },
   {
